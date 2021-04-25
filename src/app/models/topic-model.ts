@@ -2,9 +2,30 @@ export class TopicModel {
   private id:string;
   private name:string;
   private textBody:string;
-  private imageStorage:string;
-  private created_at: string;
-  private updated_at: string;
+  private imageStorage:string | null;
+  private created_at: string | null;
+  private updated_at: string | null ; 
+  private deleted_at: string 
+  private seedingId: number;
+
+
+
+    public getDeleted_at(): string {
+        return this.deleted_at;
+    }
+
+    public setDeleted_at(deleted_at: string): void {
+        this.deleted_at = deleted_at;
+    }
+
+
+    public getSeedingId(): number {
+        return this.seedingId;
+    }
+
+    public setSeedingId(seedingId: number): void {
+        this.seedingId = seedingId;
+    }
 
     public getId(): string {
         return this.id;

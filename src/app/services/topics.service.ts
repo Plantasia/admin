@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { TopicModel } from './../models/topic-model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -10,7 +11,7 @@ export class TopicsService {
   baseUrl = 'http://localhost:3333/topics/admin/list'
   constructor(private httpClient:HttpClient) { }
 
-  getTopics(){
+  getTopics():Observable<TopicModel[]>{
     return this.httpClient.get<TopicModel[]>(this.baseUrl);
   }
 }

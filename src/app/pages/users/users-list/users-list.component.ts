@@ -1,3 +1,5 @@
+import { UserModel } from './../../../models/user-model';
+import { UsersService } from './../../../services/users.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./users-list.component.css']
 })
 export class UsersListComponent implements OnInit {
+  users: UserModel[];
 
-  constructor() { }
+  constructor(private service:UsersService) { }
 
   ngOnInit() {
+     this.getUsers();
+     
+  }
+
+  getUsers(){
+    return this.service.getUsers().subscribe((users=>{
+      this.users = users;
+      console.log(this.users)
+    }));
   }
 
 }

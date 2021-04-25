@@ -7,7 +7,7 @@
 
 <div class="row mb-4">
   <div class=" col h2 border-left">
-    Tópicos
+    Usuários
   </div>
 
   <div class="btn btn-success d-flex align-items-center" routerLink="new">
@@ -28,10 +28,10 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let topic of topics">
+      <tr *ngFor="let user of users">
         <td>
-          <strong>Tópico</strong><br>
-          <small>Topic desc</small>
+          <strong>{{user.name}}</strong><br>
+          <small>{{user.bio}}</small>
         </td>
 
         <td>

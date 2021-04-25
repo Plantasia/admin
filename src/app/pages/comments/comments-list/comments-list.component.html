@@ -27,10 +27,10 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let category of categories">
+      <tr *ngFor="let comment of comments">
         <td>
-          <strong>Comentário</strong><br>
-          <small>TextBody</small>
+          <strong>"{{comment.textBody}}"</strong><br>
+          <small>{{comment.id}}</small>
         </td>
 
         <td>
