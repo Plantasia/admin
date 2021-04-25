@@ -3,8 +3,9 @@ import { CategoriesListComponent } from './categories-list/categories-list.compo
 import { CategoriesFormComponent } from './categories-form/categories-form.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {DataTablesModule} from 'angular-datatables'
 
-
+import {MatIconModule} from '@angular/material/icon'
 import { CategoriesRoutingModule } from './categories-routing.module';
 
 @NgModule({
@@ -12,7 +13,10 @@ import { CategoriesRoutingModule } from './categories-routing.module';
   imports: [
     CommonModule,
     CategoriesRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    DataTablesModule,
+    MatIconModule
+  
   ]
 })
 export class CategoriesModule { }

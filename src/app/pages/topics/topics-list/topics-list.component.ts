@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TopicModel } from 'src/app/models/topic-model';
 
 @Component({
   selector: 'app-topics-list',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./topics-list.component.css']
 })
 export class TopicsListComponent implements OnInit {
-
+  topics:TopicModel[];
   constructor() { }
 
   ngOnInit() {
   }
 
+  getTopics(){
+  
+  }
 }
