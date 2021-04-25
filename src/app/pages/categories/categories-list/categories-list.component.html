@@ -1,3 +1,51 @@
-<p>
-  categories-list works!
-</p>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item" routerLink="/"><a href="#">Home</a></li>
+    <li class="breadcrumb-item" aria-current="page">Categories</li>
+  </ol>
+</nav>
+
+<div class="row mb-4">
+  <div class=" col h2 border-left">
+    {{pageName}}
+  </div>
+
+  <div class="btn btn-success" routerLink="new">
+    + Nova Categoria
+  </div>
+</div>
+
+  <table class="mb-4 table table-hover">
+    <thead>
+      <tr class="mb-4 bg-light">
+        <th class="">
+          Categoria
+        </th>
+        <th>
+          Ações
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>
+          <strong>Category</strong><br>
+          <small>Essa categoria é destinada às cactáceas</small>
+        </td>
+
+        <td>
+          <button class="btn btn-outline-info mr-2" [routerLink]="[1,'edit']">Editar</button>
+          <button class="btn btn-outline-danger ml-2"  >Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+
+
+
+
+
+
+
