@@ -84,7 +84,7 @@
     </div>
   </div>
 
-  <button [attr.disabled]="submittingForm || categoryForm.invalid" (submit)="submit()" class="mt-4 btn btn-primary d-flex align-items-center">
+  <button [disabled]="submittingForm || categoryForm.invalid" (submit)="submit()" class="mt-4 btn btn-primary d-flex align-items-center">
     <mat-icon>check</mat-icon> &nbsp;{{nameButton}}
   </button>
   <br/><br/>

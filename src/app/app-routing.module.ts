@@ -21,6 +21,11 @@ const routes: Routes = [
     path:'comments',
     loadChildren:()=> import('./pages/comments/comments.module')
     .then(module=> module.CommentsModule)
+  },
+  {
+    path:'login',
+    loadChildren:()=> import('./pages/login/login.module')
+    .then(module=> module.LoginModule)
   }
 ];
 

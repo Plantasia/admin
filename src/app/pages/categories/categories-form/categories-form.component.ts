@@ -3,10 +3,12 @@ import { CategoryModel } from './../../../models/category-model';
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { CategoryService } from 'src/app/services/category.service';
-import { switchMap} from 'rxjs/operators'
+import { catchError, switchMap} from 'rxjs/operators'
 import toastr from 'toastr';
 import { renderFlagCheckIfStmt } from '@angular/compiler/src/render3/view/template';
 import { ThisReceiver } from '@angular/compiler';
+import { throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-categories-form',
   templateUrl: './categories-form.component.html',
@@ -111,10 +113,14 @@ private createCategory(){
   const newCategory:CategoryModel =
   Object.assign( new CategoryModel(), this.categoryForm.value)
 
-  this.service.create(newCategory)
-  .subscribe(
-    categoryCreated=>{ this.actionsForSuccess(categoryCreated),
-    error=>this.actionsForError(error)
+  this.service.create(newCategory).pipe(
+    catchError(error=> {
+      this.actionsForError(error)
+      return throwError(error)
+    }
+  ))
+  .subscribe(categoryCreated=>{ 
+    this.actionsForSuccess(categoryCreated)
   })
     
 }
@@ -123,7 +129,15 @@ private updateCategory(){
     const category: CategoryModel =
     Object.assign(new CategoryModel(), this.categoryForm.value)
 
-    this.service.update(category)
+    this.service.update(category).pipe(
+      catchError(error=>{
+        this.actionsForError(error);
+        return throwError(error);
+      })
+    ).subscribe((updatedCategory)=>{
+      this.actionsForSuccess(updatedCategory);
+
+    })
 }
 
  submit(){
@@ -134,6 +148,7 @@ private updateCategory(){
    }
 
    else{ 
+     console.log("UPDATE")
      this.updateCategory()
     
    }
@@ -145,9 +160,12 @@ private updateCategory(){
 
  }
 
- private actionsForError(error:any){
-  toastr.error("Ocorreu um erro!");
+ private actionsForError(error:HttpErrorResponse){
+  toastr.error(error.message);
+  toastr.error("Ocorreu um erro!" );
+  
   this.submittingForm =false;
+  
  }
 
  
