@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -8,11 +9,15 @@ import { MatIconModule } from '@angular/material/icon';
   declarations: [],
   imports: [
     HttpClientModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule,
+    
     
   ],
   exports:[
     HttpClientModule,
-    MatIconModule]
+    MatIconModule,
+    FormsModule,
+    ReactiveFormsModule]
 })
 export class SharedModule { }

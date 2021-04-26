@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './template/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core/core.module';
+import { HeaderComponent } from './template/header/header.component';
 
 
 
@@ -17,6 +18,7 @@ import { CoreModule } from './core/core/core.module';
   declarations: [
     AppComponent,
     NavbarComponent,
+    HeaderComponent,
   ],
   imports: [
     CoreModule,

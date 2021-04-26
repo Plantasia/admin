@@ -33,6 +33,7 @@
     "datatables.net": "^1.10.24",
     "datatables.net-dt": "^1.10.24",
     "jquery": "^3.6.0",
+    "moment": "^2.29.1",
     "primeicons": "^4.1.0",
     "primeng": "^11.4.0",
     "rxjs": "~6.6.7",

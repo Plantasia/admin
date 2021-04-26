@@ -20,7 +20,7 @@ export class CommentsListComponent implements OnInit {
   getComments(){
     this.service.getComments().subscribe((comments)=>{
       this.comments = comments;
-      console.log(comments);
+    
     })
   }
 

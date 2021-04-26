@@ -20,7 +20,7 @@ export class UsersListComponent implements OnInit {
   getUsers(){
     return this.service.getUsers().subscribe((users=>{
       this.users = users;
-      console.log(this.users)
+     
     }));
   }
 
