@@ -1,3 +1,4 @@
+import { SharedModule } from './../../shared/shared-module/shared.module';
 import { MatIconModule } from '@angular/material/icon';
 import { UsersFormComponent } from './users-form/users-form.component';
 import { UsersListComponent } from './users-list/users-list.component';
@@ -11,8 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     UsersRoutingModule,
-    HttpClientModule,
-    MatIconModule
+    SharedModule
   ]
 })
 export class UsersModule { }

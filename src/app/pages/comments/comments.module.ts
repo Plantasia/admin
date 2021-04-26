@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { CommentsRoutingModule } from './comments-routing.module';
 import { CommentsFormComponent } from './comments-form/comments-form.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from 'src/app/shared/shared-module/shared.module';
 
 
 
@@ -12,9 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [CommentsFormComponent,CommentsListComponent],
   imports: [
     CommonModule,
-    HttpClientModule,
     CommentsRoutingModule,
-    MatIconModule
+    SharedModule
+    
   ]
 })
 export class CommentsModule { }

@@ -1,3 +1,4 @@
+import { SharedModule } from 'src/app/shared/shared-module/shared.module';
 import { CommentsModule } from './pages/comments/comments.module';
 import { TopicsModule } from './pages/topics/topics.module';
 import { CategoriesModule } from './pages/categories/categories.module';
@@ -8,21 +9,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './template/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CoreModule } from './core/core/core.module';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
-    BrowserModule,
+    CoreModule,
+    SharedModule,
     AppRoutingModule,
     UsersModule,
     CategoriesModule,
     TopicsModule,
     CommentsModule,
-    BrowserAnimationsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
