@@ -1,3 +1,7 @@
+import { AuthGuard } from './guards/auth-guard';
+import { HttpClient } from '@angular/common/http';
+import { InterceptorModule } from './interceptor/interceptor.module';
+import { AuthService } from './services/auth.service';
 import { SharedModule } from 'src/app/shared/shared-module/shared.module';
 import { CommentsModule } from './pages/comments/comments.module';
 import { TopicsModule } from './pages/topics/topics.module';
@@ -17,8 +21,7 @@ import { HeaderComponent } from './template/header/header.component';
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    HeaderComponent,
+    
   ],
   imports: [
     CoreModule,
@@ -28,9 +31,10 @@ import { HeaderComponent } from './template/header/header.component';
     CategoriesModule,
     TopicsModule,
     CommentsModule,
-    
+    InterceptorModule,
+
   ],
-  providers: [],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

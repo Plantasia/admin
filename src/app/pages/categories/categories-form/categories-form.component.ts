@@ -47,6 +47,8 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
 
     this.categoryForm = new FormGroup({
 
+       id: new FormControl(null),
+
        name: new FormControl('',[
         Validators.required, 
         Validators.minLength(5)
@@ -61,15 +63,15 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
         Validators.minLength(10)
       ]),
   
-       createdAt:new FormControl('',[ 
+       created_at:new FormControl('',[ 
         Validators.minLength(10)
       ]),
   
-       updatedAt:new FormControl('',[ 
+       updated_at:new FormControl('',[ 
         Validators.minLength(10)
       ]),
   
-       url: new FormControl('',[
+       imageStorage: new FormControl('',[
        Validators.minLength(5)
       ])
   
@@ -113,31 +115,19 @@ private createCategory(){
   const newCategory:CategoryModel =
   Object.assign( new CategoryModel(), this.categoryForm.value)
 
-  this.service.create(newCategory).pipe(
-    catchError(error=> {
-      this.actionsForError(error)
-      return throwError(error)
-    }
-  ))
-  .subscribe(categoryCreated=>{ 
-    this.actionsForSuccess(categoryCreated)
-  })
+  this.service.create(newCategory)
     
 }
 
 private updateCategory(){
     const category: CategoryModel =
     Object.assign(new CategoryModel(), this.categoryForm.value)
+    
+    console.log("categoria para atualizar:")
+    console.log(category)
 
-    this.service.update(category).pipe(
-      catchError(error=>{
-        this.actionsForError(error);
-        return throwError(error);
-      })
-    ).subscribe((updatedCategory)=>{
-      this.actionsForSuccess(updatedCategory);
+    this.service.update(category)
 
-    })
 }
 
  submit(){
@@ -148,27 +138,11 @@ private updateCategory(){
    }
 
    else{ 
-     console.log("UPDATE")
      this.updateCategory()
     
    }
  }
 
- private actionsForSuccess(category:CategoryModel){
-   toastr.success("Categoria criada com sucesso!")
-   this.router.navigateByUrl('categories',{skipLocationChange:true})
-
- }
-
- private actionsForError(error:HttpErrorResponse){
-  toastr.error(error.message);
-  toastr.error("Ocorreu um erro!" );
-  
-  this.submittingForm =false;
-  
- }
-
- 
   private loadCategory(){
     if(this.currentAction==='edit'){
       this.route.paramMap.pipe(

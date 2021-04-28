@@ -1,3 +1,4 @@
+import { NavbarComponent } from 'src/app/template/navbar/navbar.component';
 import { SharedModule } from './../../shared/shared-module/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriesListComponent } from './categories-list/categories-list.component';
@@ -15,7 +16,6 @@ import { CategoriesRoutingModule } from './categories-routing.module';
     CommonModule,
     CategoriesRoutingModule,
     SharedModule
-  
   ]
 })
 export class CategoriesModule { }

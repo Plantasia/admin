@@ -1,3 +1,4 @@
+
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
   <ol class="mt-4 breadcrumb">
     <li class=" breadcrumb-item" routerLink="/"><a href="#">Home</a></li>
@@ -10,7 +11,7 @@
     {{pageName}}
   </div>
   
-  <div class="btn btn-outline-info d-flex align-items-center" routerLink="/categories">
+  <div class="btn btn-info d-flex align-items-center" routerLink="/categories">
     <mat-icon>arrow_back</mat-icon>&nbsp;Voltar
   </div>
 </div>
@@ -39,6 +40,11 @@
       </div>
 
       <div class="form-row mt-3">
+
+        <div  class="form-group col-md">
+          <label  for="id" class="bold">Id</label>
+          <input disabled type="text" class="form-control" formControlName="id" id="id"  [value]="category.id">
+        </div>
         
         <div  class="form-group col-md">
           <label  for="bio" class="bold">Author</label>
@@ -57,17 +63,17 @@
         
         <div  class="form-group col-md-4">
           <label for="bio" class="bold" >Data de criação</label>
-          <input [attr.disabled]="isCreating"  type="text" class="form-control" formControlName="createdAt"  id="bio"  [value]="category.created_at || null">
+          <input [attr.disabled]="isCreating"  type="text" class="form-control" formControlName="created_at"  id="bio"  [value]="category.created_at || null">
         </div>
         
         <div  class="form-group col-md-4">
           <label for="updated_at" class="bold">Ultima atualização</label>
-          <input [attr.disabled]="isCreating" formControlName="updatedAt"  type="text" class="form-control" id="avatar"  [value]="category.updated_at || null">
+          <input [attr.disabled]="isCreating" formControlName="updated_at"  type="text" class="form-control" id="avatar"  [value]="category.updated_at || null">
         </div> 
           
         <div  class="form-group col-md-4">
           <label for="avatar" class="bold">URL</label>
-          <input type="text" formControlName="url"  class="form-control" id="avatar" [value]="category.imageStorage">
+          <input type="text" formControlName="imageStorage"  class="form-control" id="avatar" [value]="category.imageStorage">
         </div>  
 
       </div>

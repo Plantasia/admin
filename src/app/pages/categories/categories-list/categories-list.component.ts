@@ -33,6 +33,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit {
   getCategories(){
     this.service.getCategories().subscribe((categories)=>{
       this.categories=categories;
+      console.log(categories)
      
     })
   }
