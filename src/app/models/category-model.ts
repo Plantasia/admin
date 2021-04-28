@@ -1,18 +1,18 @@
 export class CategoryModel {
-  private name:string  
-  private id:string 
-  private authorEmail?:string;
-  private isActive?:string;
-  private imageStorage?:string 
-  private description:string  
-  private lastTopicId?:string  
-  private lastTopicName?:string  
-  private lastActivity?:string   
-  private countComments?:string 
-  private countTopics?:string 
-  private updated_at?:string;
-  private created_at?:string;
-  private deleted_at?:string;
+  public name:string  
+  public id:string 
+  public authorEmail?:string;
+  public isActive?:string;
+  public imageStorage?:string 
+  public description:string  
+  public lastTopicId?:string  
+  public lastTopicName?:string  
+  public lastActivity?:string   
+  public countComments?:string 
+  public countTopics?:string 
+  public updated_at?:string;
+  public created_at?:string;
+  public deleted_at?:string;
 
     public getName(): string {
         return this.name;

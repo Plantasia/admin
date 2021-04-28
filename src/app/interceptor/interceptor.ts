@@ -29,11 +29,11 @@ export class Interceptor implements HttpInterceptor{
         
         return next.handle(tokenizedReq)
         .pipe(
-          tap((event: HttpEvent<any>) => {
+          /*tap((event: HttpEvent<any>) => {
             if (event instanceof HttpResponse && event.status === 201) {
               toastr.success("Operação realizada com sucesso!");
             }
-          }),
+          }),*/
             catchError(err => {
               if (err instanceof HttpErrorResponse) {
                 console.log(err)

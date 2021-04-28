@@ -115,18 +115,26 @@ private createCategory(){
   const newCategory:CategoryModel =
   Object.assign( new CategoryModel(), this.categoryForm.value)
 
-  this.service.create(newCategory)
+  this.service.create(newCategory).subscribe(
+    (c)=>{
+      console.log(c)
+      toastr.success(`Categoria ${c.name} criada`)
+      this.submittingForm =false;
+    })
     
 }
 
 private updateCategory(){
     const category: CategoryModel =
     Object.assign(new CategoryModel(), this.categoryForm.value)
-    
-    console.log("categoria para atualizar:")
-    console.log(category)
 
-    this.service.update(category)
+    this.service.update(category).subscribe(
+      (c)=>{
+        toastr.success(`Categoria ${c.name} atualizada!`)
+        this.submittingForm =false;
+      }
+      
+    )
 
 }
 
@@ -134,7 +142,9 @@ private updateCategory(){
    this.submittingForm =true;
 
    if(this.currentAction === 'new'){
-     this.createCategory();
+     this.createCategory()
+     
+     console.log("criando essa merda")
    }
 
    else{ 
