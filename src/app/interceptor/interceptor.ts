@@ -47,9 +47,7 @@ export class Interceptor implements HttpInterceptor{
                 }
                 
                 if (err.status === 500) {
-                  toastr.error();
-                  ("Erro interno  :  "
-                  +err.statusText)
+                  toastr.error("Erro no servidor!")
                 }
                 
                 else toastr.warning("Erro de conexão com o servidor : "+err.statusText);

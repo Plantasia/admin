@@ -91,12 +91,6 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private convertCategoryDates(){
-     let createdAt = this.category.getCreated_at();
-     let deletedAt = this.category.getDeleted_at();
-     let updatedAt = this.category.getUpdated_at()
-  }
-
   private setPageName(){
     if(this.currentAction=='new'){
       this.pageName ="Nova Categoria"
@@ -143,8 +137,6 @@ private updateCategory(){
 
    if(this.currentAction === 'new'){
      this.createCategory()
-     
-     console.log("criando essa merda")
    }
 
    else{ 
