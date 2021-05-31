@@ -8,8 +8,8 @@ import { Injectable } from '@angular/core';
 })
 export class TopicsService {
 
-  urlAdminList = 'http://localhost:3333/topics/admin/list'
-  baseUrl = 'http://localhost:3333/topics'
+  urlAdminList = 'http://localhost:3333/forum/topics/admin/list'
+  baseUrl = 'http://localhost:3333/forum/topics'
   constructor(private httpClient:HttpClient) { }
 
   getTopics():Observable<TopicModel[]>{
