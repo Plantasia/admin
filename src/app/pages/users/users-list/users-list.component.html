@@ -1,7 +1,7 @@
 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item" routerLink="/"><a href="#">Home</a></li>
-    <li class="breadcrumb-item" aria-current="page">Categories</li>
+    <li class="breadcrumb-item" aria-current="page">Usuários</li>
   </ol>
 </nav>
 
@@ -9,12 +9,7 @@
   <div class=" col h2 border-left">
     Usuários
   </div>
-
-  <div class="btn btn-success d-flex align-items-center" routerLink="new">
-    <mat-icon>add_circle</mat-icon>&nbsp;Novo usuário
-  </div>
-</div>
-
+  
   <table class="mb-4 table table-hover display">
     <thead>
       <tr class="mb-4 bg-light">
@@ -35,8 +30,8 @@
         </td>
 
         <td>
-          <button class="btn btn-info mr-2" [routerLink]="[1,'edit']">Editar</button>
-          <button class="btn btn-danger ml-2"  >Excluir</button>
+          <button class="btn btn-info mr-2" [routerLink]="[user.id,'edit']">Editar</button>
+          <button class="btn btn-danger ml-2" >Excluir</button>
         </td>
       </tr>
     </tbody>

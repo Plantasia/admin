@@ -117,7 +117,7 @@ export class TopicsFormComponent implements OnInit {
 
     const topic: TopicModel =
     Object.assign(new TopicModel(), this.topicForm.value)
-
+    console.log(topic);
     this.service.update(topic).subscribe(
       (t)=>{
         toastr.success(`Tópico atualizado!`)

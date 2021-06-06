@@ -27,7 +27,7 @@ export class TopicsService {
   }
 
   public update(topic: TopicModel):Observable<TopicModel>{
-    return this.httpClient.put<TopicModel>(
+    return this.httpClient.patch<TopicModel>(
       this.baseUrl+'/'+topic.id,
       topic
       )

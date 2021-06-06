@@ -8,10 +8,19 @@ import { Injectable } from '@angular/core';
 })
 export class UsersService {
 
-  baseUrl="http://localhost:3333/users/admin"
+  adminFindAll = "http://localhost:3333/users/admin/findall/"
+  baseURL = "http://localhost:3333/users/"
   constructor(private HttpClient:HttpClient) { }
 
   getUsers():Observable<UserModel[]>{
-    return this.HttpClient.get<UserModel[]>(this.baseUrl)
+    return this.HttpClient.get<UserModel[]>(this.adminFindAll)
+  }
+
+  getUserById(id:string): Observable<UserModel>{
+    return this.HttpClient.get<UserModel>(this.baseURL+id)
+  }
+
+  update(user): Observable<UserModel>{
+    return this.HttpClient.patch<UserModel>(this.baseURL+user.id,user)
   }
 }
