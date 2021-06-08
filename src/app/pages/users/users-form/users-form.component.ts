@@ -64,17 +64,17 @@ export class UsersFormComponent implements OnInit {
 
       id: new FormControl(null),
 
+      bio: new FormControl('', [
+        Validators.required,
+        Validators.minLength(10)
+      ]),
+
       name: new FormControl('', [
         Validators.required,
         Validators.minLength(10)
       ]),
 
-      textBody: new FormControl('', [
-        Validators.required,
-        Validators.minLength(10)
-      ]),
-
-      isActive: new FormControl('', [
+      isAdmin: new FormControl('', [
       ]),
 
       imageStorage: new FormControl('', [
@@ -119,9 +119,12 @@ export class UsersFormComponent implements OnInit {
       ).subscribe(
         (user) => {
           this.user = user
+          console.log(this.user);
           this.userForm.patchValue(user)
         }
+        
       )
+      
     }
   }
 
