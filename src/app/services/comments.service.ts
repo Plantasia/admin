@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 })
 export class CommentsService {
 
-  adminURL='http://localhost:3333/forum/comments/admin/'
+  adminURL='http://localhost:3333/forum/comments/admin/list'
   baseURL ='http://localhost:3333/forum/comments/'
   constructor(private httpClient:HttpClient) { }
 

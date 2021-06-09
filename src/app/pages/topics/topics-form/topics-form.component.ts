@@ -89,13 +89,11 @@ export class TopicsFormComponent implements OnInit {
         Validators.minLength(10)
       ]),
 
-      created_at: new FormControl('',[
-        Validators.required,
-      ]),
+      created_at: new FormControl('',[]),
 
-      updated_at: new FormControl('',[
-        Validators.required,
-      ])
+      updated_at: new FormControl('',[]),
+
+       deleted_at: new FormControl('', [])
       
     })
 

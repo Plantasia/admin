@@ -9,29 +9,29 @@ import { Observable } from 'rxjs';
 export class CategoryService {
 
   constructor(private httpClient: HttpClient) {}
-  baseURL = 'http://localhost:3333/forum/categories/admin';
-  baseURLPost ='http://localhost:3333/forum/categories/'
+  baseAdmin = 'http://localhost:3333/forum/categories/admin/list';
+  baseURL ='http://localhost:3333/forum/categories/'
   
 
 
   public getCategories():Observable<CategoryModel[]>{
-   return this.httpClient.get<CategoryModel[]>(this.baseURL);
+   return this.httpClient.get<CategoryModel[]>(this.baseAdmin);
   }
  
    public  getCategoryById(id:string):Observable<CategoryModel>{
-    var resp = this.httpClient.get<CategoryModel>(this.baseURL+'/'+id);
+    var resp = this.httpClient.get<CategoryModel>(this.baseURL+'admin/'+id);
     return resp;
   }
 
   public create(newCategory: CategoryModel):Observable<CategoryModel>{
     return this.httpClient.post<CategoryModel>(
-      this.baseURLPost, newCategory
+      this.baseURL, newCategory
       );
   }
 
   public update(category: CategoryModel):Observable<CategoryModel>{
     return this.httpClient.patch<CategoryModel>(
-      this.baseURLPost+category.getId(),
+      this.baseURL+category.getId(),
       category
       )
   }

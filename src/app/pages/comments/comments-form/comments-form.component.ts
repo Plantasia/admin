@@ -55,6 +55,29 @@ export class CommentsFormComponent implements OnInit {
       id: new FormControl('', [
         Validators.requiredTrue
       ]),
+
+      name: new FormControl('', [
+        Validators.requiredTrue
+      ]),
+
+      author: new FormControl('', [
+        Validators.requiredTrue
+      ]),
+
+      topic: new FormControl('', [
+        Validators.requiredTrue
+      ]),
+
+      created_at: new FormControl('', [
+        Validators.requiredTrue
+      ]),
+
+      updated_at: new FormControl('', [
+        Validators.requiredTrue
+      ]),
+
+
+
     })
   }
 
