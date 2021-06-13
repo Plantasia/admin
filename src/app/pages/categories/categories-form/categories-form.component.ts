@@ -47,7 +47,9 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
 
     this.categoryForm = new FormGroup({
 
-       id: new FormControl(null),
+      id: new FormControl({
+        value: null
+      }),
 
        name: new FormControl('',[
         Validators.required, 
@@ -57,6 +59,10 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
        description: new FormControl('',[
         Validators.required, 
         Validators.minLength(5)
+       ]),
+       
+      isActive: new FormControl(false, [
+        
       ]),
   
        authorEmail:new FormControl('',[ 
@@ -80,7 +86,7 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
   }
 
   private setCurrentAction(){
-    if(this.route.snapshot.url[0].path==='new') {
+    if(this.route.snapshot.url[0].path === 'new') {
     //[0] is to catch the 'new'
       this.currentAction= 'new';
       
@@ -120,7 +126,7 @@ private createCategory(){
 
 private updateCategory(){
     const category: CategoryModel =
-    Object.assign(new CategoryModel(), this.categoryForm.value)
+      Object.assign(new CategoryModel(), this.categoryForm.value)
 
     this.service.update(category).subscribe(
       (c)=>{
@@ -155,7 +161,7 @@ private updateCategory(){
         (category)=>{
           this.category =category;
           this.categoryForm.patchValue(category);
-        
+          console.log(category);
         }
       )
     

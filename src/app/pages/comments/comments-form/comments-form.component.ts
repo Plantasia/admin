@@ -23,7 +23,11 @@ export class CommentsFormComponent implements OnInit {
   errorMessages: string[] = null;
   submittingForm: boolean = false;
   nameButton: string;
-  comment: CommentModel = new CommentModel;
+  comment: CommentModel = new CommentModel();
+  topic: TopicModel = new TopicModel();
+  user: UserModel = new UserModel();
+  isActive: boolean;
+
 
 
 
@@ -76,6 +80,9 @@ export class CommentsFormComponent implements OnInit {
         Validators.requiredTrue
       ]),
 
+      isActive: new FormControl(false, [
+      ]),
+
 
 
     })
@@ -121,11 +128,16 @@ export class CommentsFormComponent implements OnInit {
 
   }
 
+  
+
   private updatecomment() {
 
     var updateComment = new CommentModel();
     updateComment.id = this.comment.id;
     updateComment.textBody = this.commentForm.get('textBody').value;
+    if (!this.isActive) {
+      updateComment.deleted_at = new Date().toISOString();
+   }
 
     console.log(updateComment);
     this.service.update(updateComment).subscribe(
@@ -149,6 +161,12 @@ export class CommentsFormComponent implements OnInit {
     }
   }
 
+  private checkIsActive( deleted_at:string ) {
+    if (!deleted_at|| deleted_at != null) {
+      this.isActive = false;
+      }
+  }
+
   private loadcomment() {
     if (this.currentAction === 'edit') {
       this.route.paramMap.pipe(
@@ -159,12 +177,13 @@ export class CommentsFormComponent implements OnInit {
         (comment) => {
           this.comment = comment;
           this.commentForm.patchValue(comment);
+         
 
           this.userService
             .getUserById(comment.userId)
             .subscribe(
               (owner) => {
-                this.comment.user = owner;
+                this.user = owner;
               }
             );
 
@@ -172,15 +191,18 @@ export class CommentsFormComponent implements OnInit {
             .getTopicById(comment.topicId)
             .subscribe(
               (topic) => {
-                this.comment.topic = topic;
+                this.topic = topic;
               }
-            )
-          console.log("thiscomment")
-          console.log(comment);
+          )
+          this.checkIsActive(comment.deleted_at);
+
         }
       )
 
     }
+    
 
   }
+
+  
 }

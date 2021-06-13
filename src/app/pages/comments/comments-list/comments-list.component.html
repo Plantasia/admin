@@ -31,7 +31,7 @@
 
         <td>
           <button class="btn btn-info mr-2" [routerLink]="[comment.id,'edit']">Editar</button>
-          <button class="btn btn-danger ml-2"  >Excluir</button>
+          <button class="btn btn-danger ml-2" [attr.disabled]="!isActive"  >Inativar</button>
         </td>
       </tr>
     </tbody>

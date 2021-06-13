@@ -29,7 +29,9 @@ export class CategoryService {
       );
   }
 
-  public update(category: CategoryModel):Observable<CategoryModel>{
+  public update(category: CategoryModel): Observable<CategoryModel>{
+    console.log(category.id)
+    console.log(category.getId())
     return this.httpClient.patch<CategoryModel>(
       this.baseURL+category.getId(),
       category

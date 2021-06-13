@@ -48,7 +48,7 @@
         
         <div  class="form-group col-md">
           <label  for="bio" class="bold">Author</label>
-          <input [attr.disabled]="isCreating" type="text" class="form-control" formControlName="authorEmail" id="bio"  [value]="category.authorEmai">
+          <input [attr.disabled]="isCreating" type="text" class="form-control" formControlName="authorEmail" id="bio"  [value]="category.authorEmail">
         </div>
 
       </div>
@@ -67,16 +67,17 @@
 
         <div class="form-group col-md-4">
           <label for="deleted" class="bold">Inativar</label>
-          <input type="checkbox" class="row ml-5" value="deleted" />
+          <input type="checkbox" name="isActive" formControlName="isActive" [(ngModel)]="category.isActive" class="row ml-5" value="deleted" />
         </div>
        
       </div>
 
       <div class="form-group row mt-3">
         <div class="ml-3 col-3">
-          <input type="file" class="custom-file-input" formControlName="imageStorage"
-            id="imageStorage" required>
-          <label class="custom-file-label" for="i">Upload de imagem</label>
+          <input type="file" class="custom-file-input"
+            id="imageStorage"
+            (change)="handleFileInput($event.target.files)">
+          <label class="custom-file-label" for="file">Upload de imagem</label>
           <div class="invalid-feedback">Example invalid custom file feedback</div>
         </div>
 
