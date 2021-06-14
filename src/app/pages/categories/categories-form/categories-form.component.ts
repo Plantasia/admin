@@ -77,11 +77,8 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
         Validators.minLength(10)
       ]),
   
-       imageStorage: new FormControl('',[
-       Validators.minLength(5)
-      ])
-  
-
+       imageStorage: new FormControl('',[])
+       
     })
   }
 
@@ -104,10 +101,20 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
       this.isCreating =true
     }
     else{
-      const categoryName = this.category.getName() || ""
-      this.pageName= "Editar "+ categoryName;
+      this.pageName = "Editar Categoria";
       this.isCreating =false;
       this.nameButton= "Editar"
+    }
+  }
+ 
+  private handleFileInput(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.categoryForm.get('imageStorage').patchValue({
+        imageStorage:file
+        }
+      );
+     
     }
   }
 
@@ -127,12 +134,24 @@ private createCategory(){
 private updateCategory(){
     const category: CategoryModel =
       Object.assign(new CategoryModel(), this.categoryForm.value)
-
-    this.service.update(category).subscribe(
+  
+  const formData = new FormData();
+  const name = this.categoryForm.get('name').value;
+  const description = this.categoryForm.get('description').value;
+  const file = this.categoryForm.get('imageStorage').value
+  
+  console.log(name,description,file)
+  formData.append('name', name);
+  formData.append('description', description);
+  formData.append('file', file);
+  
+  this.service.update(category.id, formData).subscribe(
+    
       (c)=>{
         toastr.success(`Categoria ${c.name} atualizada!`)
         this.submittingForm =false;
-      }
+    }
+    
       
     )
 

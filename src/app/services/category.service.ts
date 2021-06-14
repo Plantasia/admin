@@ -29,12 +29,15 @@ export class CategoryService {
       );
   }
 
-  public update(category: CategoryModel): Observable<CategoryModel>{
-    console.log(category.id)
-    console.log(category.getId())
-    return this.httpClient.patch<CategoryModel>(
-      this.baseURL+category.getId(),
-      category
+  public update(id, formData: any): Observable<CategoryModel>{
+    let headers = new HttpHeaders();
+    headers = headers.set(
+      'Content-Type', `multipart/form-data; boundary=${formData._boundary}`)
+    
+
+    return this.httpClient.patch<any>(
+      this.baseURL+id,
+      formData,{ headers:headers}
       )
   }
 
