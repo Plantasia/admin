@@ -65,8 +65,8 @@
         </div>
 
         <div class="form-group col-md-4">
-          <label for="deleted" class="bold">Inativar</label>
-          <input type="checkbox" class="row ml-5" value="deleted" formControl="isActive"  [(ngModel)]="isActive"/>
+          <label for="deleted" class="bold">Inativo:</label>
+          <input type="checkbox" class="row ml-5" value="deleted" (change)="changeStatus(comment,$event)" formControlName="deleted_at" [checked]="comment.deleted_at!=null" />
         </div>
         
       </div>

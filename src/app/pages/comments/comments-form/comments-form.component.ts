@@ -26,7 +26,7 @@ export class CommentsFormComponent implements OnInit {
   comment: CommentModel = new CommentModel();
   topic: TopicModel = new TopicModel();
   user: UserModel = new UserModel();
-  isActive: boolean;
+  deleted: boolean =true;
 
 
 
@@ -80,11 +80,8 @@ export class CommentsFormComponent implements OnInit {
         Validators.requiredTrue
       ]),
 
-      isActive: new FormControl(false, [
+      deleted_at: new FormControl('', [
       ]),
-
-
-
     })
   }
 
@@ -100,6 +97,20 @@ export class CommentsFormComponent implements OnInit {
     }
   }
 
+  private changeStatus(comment:CommentModel, event: any) {
+    if (comment.deleted_at == null) {
+      comment.deleted_at = new Date().toISOString();
+      console.log("STATUS ANTERIOR: ATIVO")
+      console.log("STATUS ATUAL:DELETADO")
+      console.log(comment.deleted_at)
+    }
+    else {
+      comment.deleted_at = null;
+      console.log("STATUS ANTERIOR :DELETADO")
+      console.log("STATUS ATUAL: ATIVO")
+      console.log(comment.deleted_at)
+    } 
+  }
 
   private setPageName() {
     if (this.currentAction == 'new') {
@@ -135,9 +146,7 @@ export class CommentsFormComponent implements OnInit {
     var updateComment = new CommentModel();
     updateComment.id = this.comment.id;
     updateComment.textBody = this.commentForm.get('textBody').value;
-    if (!this.isActive) {
-      updateComment.deleted_at = new Date().toISOString();
-   }
+    updateComment.deleted_at = this.comment.deleted_at;
 
     console.log(updateComment);
     this.service.update(updateComment).subscribe(
@@ -161,12 +170,6 @@ export class CommentsFormComponent implements OnInit {
     }
   }
 
-  private checkIsActive( deleted_at:string ) {
-    if (!deleted_at|| deleted_at != null) {
-      this.isActive = false;
-      }
-  }
-
   private loadcomment() {
     if (this.currentAction === 'edit') {
       this.route.paramMap.pipe(
@@ -177,7 +180,10 @@ export class CommentsFormComponent implements OnInit {
         (comment) => {
           this.comment = comment;
           this.commentForm.patchValue(comment);
-         
+
+          if (comment.deleted_at) {
+            this.deleted = true;
+          }
 
           this.userService
             .getUserById(comment.userId)
@@ -194,8 +200,6 @@ export class CommentsFormComponent implements OnInit {
                 this.topic = topic;
               }
           )
-          this.checkIsActive(comment.deleted_at);
-
         }
       )
 

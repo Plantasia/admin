@@ -17,7 +17,8 @@ export class CommentsService {
     return this.httpClient.get<CommentModel[]>(this.adminURL)
   }
 
-  public  getCommentById(id:string):Observable<CommentModel>{
+  public getCommentById(id: string): Observable<CommentModel>{
+    console.log(this.baseURL + id);
     var resp = this.httpClient.get<CommentModel>(this.baseURL+id);
     return resp;
   }
