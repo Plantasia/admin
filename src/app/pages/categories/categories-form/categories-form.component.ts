@@ -135,17 +135,7 @@ private updateCategory(){
     const category: CategoryModel =
       Object.assign(new CategoryModel(), this.categoryForm.value)
   
-  const formData = new FormData();
-  const name = this.categoryForm.get('name').value;
-  const description = this.categoryForm.get('description').value;
-  const file = this.categoryForm.get('imageStorage').value
-  
-  console.log(name,description,file)
-  formData.append('name', name);
-  formData.append('description', description);
-  formData.append('file', file);
-  
-  this.service.update(category.id, formData).subscribe(
+  this.service.update(category.id, category).subscribe(
     
       (c)=>{
         toastr.success(`Categoria ${c.name} atualizada!`)
@@ -154,8 +144,16 @@ private updateCategory(){
     
       
     )
-
 }
+  
+  private uploadImage() {
+    const formData = new FormData();
+    const name = this.categoryForm.get('name').value;
+    const description = this.categoryForm.get('description').value;
+    const file = this.categoryForm.get('imageStorage').value
+
+    formData.append('file', file);
+  }
 
  submit(){
    this.submittingForm =true;

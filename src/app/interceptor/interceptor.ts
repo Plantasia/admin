@@ -17,7 +17,6 @@ export class Interceptor implements HttpInterceptor{
       
       const access_token = localStorage.getItem("access_token");
       if(access_token){
-        //headers: req.headers.set('Authorization', 'Bearer '+access_token)
         const tokenizedReq = req.clone({
           setHeaders: {
             Accept: 'application/json',
@@ -29,11 +28,6 @@ export class Interceptor implements HttpInterceptor{
         
         return next.handle(tokenizedReq)
         .pipe(
-          /*tap((event: HttpEvent<any>) => {
-            if (event instanceof HttpResponse && event.status === 201) {
-              toastr.success("Operação realizada com sucesso!");
-            }
-          }),*/
             catchError(err => {
               if (err instanceof HttpErrorResponse) {
                 console.log(err)
