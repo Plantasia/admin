@@ -114,7 +114,15 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
         imageStorage:file
         }
       );
-     
+      const formData = new FormData();
+      formData.append('file', file);
+
+      this.service.imageUpload(this.category.id, formData).subscribe(
+        (c) => {
+          console.log(c);
+        }
+      )
+
     }
   }
 
@@ -140,9 +148,7 @@ private updateCategory(){
       (c)=>{
         toastr.success(`Categoria ${c.name} atualizada!`)
         this.submittingForm =false;
-    }
-    
-      
+    }  
     )
 }
   
