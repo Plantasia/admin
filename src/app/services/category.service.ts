@@ -10,7 +10,8 @@ export class CategoryService {
 
   constructor(private httpClient: HttpClient) {}
   baseAdmin = 'http://localhost:3333/forum/categories/admin/list';
-  baseURL ='http://localhost:3333/forum/categories/'
+  baseURL = 'http://localhost:3333/forum/categories/'
+  baseUpload = 'http://localhost:3333/forum/categories/image/'
   
 
 
@@ -29,15 +30,20 @@ export class CategoryService {
       );
   }
 
-  public update(id, formData: any): Observable<CategoryModel>{
-    let headers = new HttpHeaders();
-    headers = headers.set(
-      'Content-Type', `multipart/form-data; boundary=${formData._boundary}`)
+  public imageUpload(formData: FormData, id: string) {
+    console.log("entrei aqui")
+    console.log(formData)
+    return this.httpClient.post<any>(
+      this.baseUpload + id, formData, { headers: new HttpHeaders({ 'Content-Type': 'undefined' })  },
     
+    )
+  }
 
+  public update(id, data: CategoryModel): Observable<CategoryModel>{
+    
     return this.httpClient.patch<any>(
       this.baseURL+id,
-      formData,{ headers:headers}
+      data
       )
   }
 

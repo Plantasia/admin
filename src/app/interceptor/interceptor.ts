@@ -20,8 +20,6 @@ export class Interceptor implements HttpInterceptor{
         //headers: req.headers.set('Authorization', 'Bearer '+access_token)
         const tokenizedReq = req.clone({
           setHeaders: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
             Authorization: "Bearer "+access_token
           }
           

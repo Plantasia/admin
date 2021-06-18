@@ -109,11 +109,26 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
  
   private handleFileInput(event) {
     if (event.target.files.length > 0) {
-      const file = event.target.files[0];
+      const file:File = event.target.files[0];
       this.categoryForm.get('imageStorage').patchValue({
         imageStorage:file
         }
       );
+
+      const formData = new FormData();
+        
+      formData.append('file', file, file.name);
+      console.log("file")
+      console.log(file)
+
+      console.log("antes")
+      console.log(formData)
+      this.service.imageUpload(formData, this.category.id).subscribe(
+        (c) => {
+          console.log("upload")
+          console.log(c)
+        }
+      )
      
     }
   }
@@ -134,27 +149,14 @@ private createCategory(){
 private updateCategory(){
     const category: CategoryModel =
       Object.assign(new CategoryModel(), this.categoryForm.value)
-  
-  const formData = new FormData();
-  const name = this.categoryForm.get('name').value;
-  const description = this.categoryForm.get('description').value;
-  const file = this.categoryForm.get('imageStorage').value
-  
-  console.log(name,description,file)
-  formData.append('name', name);
-  formData.append('description', description);
-  formData.append('file', file);
-  
-  this.service.update(category.id, formData).subscribe(
+
+  this.service.update(category.id, category).subscribe(
     
       (c)=>{
         toastr.success(`Categoria ${c.name} atualizada!`)
         this.submittingForm =false;
     }
-    
-      
     )
-
 }
 
  submit(){
