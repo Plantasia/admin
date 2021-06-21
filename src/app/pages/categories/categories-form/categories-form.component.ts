@@ -3,7 +3,7 @@ import { CategoryModel } from './../../../models/category-model';
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { CategoryService } from 'src/app/services/category.service';
-import { catchError, switchMap} from 'rxjs/operators'
+import { catchError, switchMap } from 'rxjs/operators'
 import toastr from 'toastr';
 import { renderFlagCheckIfStmt } from '@angular/compiler/src/render3/view/template';
 import { ThisReceiver } from '@angular/compiler';
@@ -15,25 +15,25 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./categories-form.component.css']
 })
 export class CategoriesFormComponent implements OnInit, AfterViewInit {
-  currentAction:string;
-  isCreating:boolean;
-  categoryForm:FormGroup;
-  pageName:string;
-  errorMessages: string[]= null;
-  submittingForm:boolean =false;
-  nameButton:string;
-  category:CategoryModel = new CategoryModel;
+  currentAction: string;
+  isCreating: boolean;
+  categoryForm: FormGroup;
+  pageName: string;
+  errorMessages: string[] = null;
+  submittingForm: boolean = false;
+  nameButton: string;
+  category: CategoryModel = new CategoryModel;
 
   constructor(
-    private service:CategoryService,
+    private service: CategoryService,
     private route: ActivatedRoute,
     private router: Router,
-    private formBuilder:FormBuilder,
-    private cdRef: ChangeDetectorRef   
+    private formBuilder: FormBuilder,
+    private cdRef: ChangeDetectorRef
 
-    ) { }
+  ) { }
   ngAfterViewInit(): void {
-    
+
   }
 
   ngOnInit() {
@@ -43,7 +43,7 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
     this.setPageName();
   }
 
-  private buildCategoryForm(){
+  private buildCategoryForm() {
 
     this.categoryForm = new FormGroup({
 
@@ -51,72 +51,76 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
         value: null
       }),
 
-       name: new FormControl('',[
-        Validators.required, 
+      name: new FormControl('', [
+        Validators.required,
         Validators.minLength(5)
       ]),
-  
-       description: new FormControl('',[
-        Validators.required, 
+
+      description: new FormControl('', [
+        Validators.required,
         Validators.minLength(5)
-       ]),
-       
-      isActive: new FormControl(false, [
-        
       ]),
-  
-       authorEmail:new FormControl('',[ 
+
+      isActive: new FormControl(true, [
+
+      ]),
+
+      authorEmail: new FormControl('', [
         Validators.minLength(10)
       ]),
-  
-       created_at:new FormControl('',[ 
+
+      created_at: new FormControl('', [
         Validators.minLength(10)
       ]),
-  
-       updated_at:new FormControl('',[ 
+
+      updated_at: new FormControl('', [
         Validators.minLength(10)
       ]),
-  
-       imageStorage: new FormControl('',[])
-       
+
+      deleted_at: new FormControl('', [
+        Validators.minLength(10)
+      ]),
+
+      imageStorage: new FormControl('', [])
+
     })
   }
 
-  private setCurrentAction(){
-    if(this.route.snapshot.url[0].path === 'new') {
-    //[0] is to catch the 'new'
-      this.currentAction= 'new';
-      
+  private setCurrentAction() {
+    if (this.route.snapshot.url[0].path === 'new') {
+      //[0] is to catch the 'new'
+      this.currentAction = 'new';
+
     }
-    else{ 
-      this.currentAction= 'edit';
-     
+    else {
+      this.currentAction = 'edit';
+
     }
   }
 
-  private setPageName(){
-    if(this.currentAction=='new'){
-      this.pageName ="Nova Categoria"
-      this.nameButton="Criar"
-      this.isCreating =true
+  private setPageName() {
+    if (this.currentAction == 'new') {
+      this.pageName = "Nova Categoria"
+      this.nameButton = "Criar"
+      this.isCreating = true
     }
-    else{
+    else {
       this.pageName = "Editar Categoria";
-      this.isCreating =false;
-      this.nameButton= "Editar"
+      this.isCreating = false;
+      this.nameButton = "Editar"
     }
   }
- 
+
   private handleFileInput(event) {
     if (event.target.files.length > 0) {
-      const file:File = event.target.files[0];
+      const file: File = event.target.files[0];
       this.categoryForm.get('imageStorage').patchValue({
-        imageStorage:file
-        }
+        imageStorage: file
+      }
       );
 
       const formData = new FormData();
-        
+
       formData.append('file', file, file.name);
       console.log("file")
       console.log(file)
@@ -129,65 +133,87 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
           console.log(c)
         }
       )
-     
+
     }
   }
 
-private createCategory(){
-  const newCategory:CategoryModel =
-  Object.assign( new CategoryModel(), this.categoryForm.value)
+  private createCategory() {
+    const newCategory: CategoryModel =
+      Object.assign(new CategoryModel(), this.categoryForm.value)
 
-  this.service.create(newCategory).subscribe(
-    (c)=>{
-      console.log(c)
-      toastr.success(`Categoria ${c.name} criada`)
-      this.submittingForm =false;
-    })
-    
-}
+    this.service.create(newCategory).subscribe(
+      (c) => {
+        console.log(c)
+        toastr.success(`Categoria ${c.name} criada`)
+        this.submittingForm = false;
+      })
 
-private updateCategory(){
+  }
+
+  private updateCategory() {
     const category: CategoryModel =
       Object.assign(new CategoryModel(), this.categoryForm.value)
 
-  this.service.update(category.id, category).subscribe(
-    
-      (c)=>{
+    this.service.update(category.id, category).subscribe(
+
+      (c) => {
         toastr.success(`Categoria ${c.name} atualizada!`)
-        this.submittingForm =false;
-    }
+        this.submittingForm = false;
+        console.log("categoria atualizada!")
+        console.log(c);
+      }
     )
-}
+  }
 
- submit(){
-   this.submittingForm =true;
+  private changeStatus(category: CategoryModel) {
+    if (category.isActive) {
+      this.category.deleted_at = new Date().toLocaleDateString();
+      this.category.isActive = false;
+    }
 
-   if(this.currentAction === 'new'){
-     this.createCategory()
-   }
+    else {
+      this.category.isActive = true;
+      this.category.deleted_at = null;
+    }
 
-   else{ 
-     this.updateCategory()
-    
-   }
- }
+    this.categoryForm.patchValue(this.category);
+    this.categoryForm.get('isActive').setValue( this.category.isActive )
+    this.categoryForm.get('deleted_at').setValue(this.category.deleted_at)
+   
+    console.log("categoryForm")
+    console.log(this.categoryForm.value)
 
-  private loadCategory(){
-    if(this.currentAction==='edit'){
+  }
+
+  submit() {
+    this.submittingForm = true;
+
+    if (this.currentAction === 'new') {
+      this.createCategory()
+    }
+
+    else {
+      this.updateCategory()
+
+    }
+  }
+
+  private loadCategory() {
+    if (this.currentAction === 'edit') {
       this.route.paramMap.pipe(
         switchMap(
-          params=> this.service.getCategoryById(params.get('id'))
+          params => this.service.getCategoryById(params.get('id'))
         )
       ).subscribe(
-        (category)=>{
-          this.category =category;
+        (category) => {
+          this.category = category;
           this.categoryForm.patchValue(category);
           console.log(category);
         }
       )
-    
-  }
 
-  
+    }
+
+
   }
 }

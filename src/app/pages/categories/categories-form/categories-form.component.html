@@ -67,7 +67,7 @@
 
         <div class="form-group col-md-4">
           <label for="deleted" class="bold">Inativo:</label>
-          <input type="checkbox" name="isActive" formControlName="isActive" [(ngModel)]="category.isActive" class="row ml-5" value="deleted" />
+          <input type="checkbox" name="isActive" (change)="changeStatus(category)" [checked]="!category.isActive"  class="row ml-5" value="deleted" />
         </div>
        
       </div>
@@ -89,7 +89,7 @@
     </div>
   </div>
 
-  <button [disabled]="submittingForm || categoryForm.invalid" (submit)="submit()" class="mt-4 btn btn-primary d-flex align-items-center">
+  <button [disabled]="submittingForm" (submit)="submit()" class="mt-4 btn btn-primary d-flex align-items-center">
     <mat-icon>check</mat-icon> &nbsp;{{nameButton}}
   </button>
   <br/><br/>
