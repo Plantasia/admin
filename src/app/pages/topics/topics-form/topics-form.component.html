@@ -63,7 +63,7 @@
 
         <div class="form-group col-md-4">
           <label for="deleted" class="bold">Inativar</label>
-          <input type="checkbox" class="row ml-5" value="deleted" />
+          <input [checked]="!topic.isActive" type="checkbox" (change)="changeStatus(topic)" class="row ml-5" value="deleted" />
         </div>
         
       </div>

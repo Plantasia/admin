@@ -6,6 +6,7 @@ import { TopicModel } from 'src/app/models/topic-model';
 import toastr from 'toastr';
 import { catchError, switchMap} from 'rxjs/operators'
 import { pipe } from 'rxjs';
+import { CategoryModel } from 'src/app/models/category-model';
 
 @Component({
   selector: 'app-topics-form',
@@ -111,15 +112,32 @@ export class TopicsFormComponent implements OnInit {
       })
   }
 
+  private changeStatus(topic:CategoryModel) {
+    if (topic.isActive) {
+      this.topic.deleted_at = new Date().toISOString();
+      this.topic.isActive = false
+    }
+    else {
+      this.topic.deleted_at = null;
+      this.topic.isActive = true;
+    }
+    this.topicForm.get('deleted_at').setValue(this.topic.deleted_at)
+    this.topicForm.get('isActive').setValue(this.topic.isActive)
+    console.log(this.topicForm.value)
+  }
+
   private updateTopic(){
 
     const topic: TopicModel =
     Object.assign(new TopicModel(), this.topicForm.value)
+    console.log("objeto a ser modificado")
     console.log(topic);
     this.service.update(topic).subscribe(
       (t)=>{
         toastr.success(`Tópico atualizado!`)
-        this.submittingForm =false;
+        this.submittingForm = false;
+        console.log("topico atualizado")
+        console.log(t)
       }
       
     )
@@ -138,6 +156,7 @@ export class TopicsFormComponent implements OnInit {
         (topic)=>{
           this.topic=topic
           this.topicForm.patchValue(topic)
+          console.log(this.topic)
         }
       )
      }

@@ -17,7 +17,7 @@ export class TopicsService {
   }
 
   getTopicById(id:string):Observable<any>{
-    return this.httpClient.get<TopicModel>(this.baseUrl+'/'+id)
+    return this.httpClient.get<TopicModel>(this.baseUrl+'/'+id+'/admin')
   }
 
   public create(newTopic: TopicModel):Observable<TopicModel>{
@@ -28,7 +28,7 @@ export class TopicsService {
 
   public update(topic: TopicModel):Observable<TopicModel>{
     return this.httpClient.patch<TopicModel>(
-      this.baseUrl+'/'+topic.id,
+      this.baseUrl+'/'+topic.id+"/admin",
       topic
       )
   }
