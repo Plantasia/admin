@@ -10,7 +10,7 @@
     Usuários
   </div>
 
-  <div class="btn btn-info d-flex align-items-center" routerLink="/categories">
+  <div class="btn btn-info d-flex align-items-center" routerLink="/users">
     <mat-icon>arrow_back</mat-icon>&nbsp;Voltar
   </div>
 </div>
@@ -42,12 +42,12 @@
 
         <div class="form-group col-md-8">
           <label for="bio" class="bold">Administrador</label>&nbsp;
-          <input type="checkbox"  value="admin" id="bio">
+          <input type="checkbox" [checked]="user.isAdmin"  (change)="changeAdminStatus(user)" value="admin" id="bio">
         </div>
 
         <div class="form-group col-md-4">
           <label for="avatar" class="bold">Inativar usuário</label>&nbsp;
-          <input type="checkbox" id="avatar">
+          <input type="checkbox" [checked]="user.deleted_at" (change)="changeIsActiveStatus(user)" id="avatar">
         </div>
 
 
@@ -89,7 +89,7 @@
     </div>
   </div>
 
-  <button class="mt-4 btn btn-primary d-flex align-items-center">
+  <button (click)="updateUser()" class="mt-4 btn btn-primary d-flex align-items-center">
     <mat-icon>check_circle_outline</mat-icon> &nbsp;Salvar
   </button>
   <br /><br />

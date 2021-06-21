@@ -20,7 +20,7 @@ export class UsersService {
     return this.HttpClient.get<UserModel>(this.baseURL+id+'/admin')
   }
 
-  update(user): Observable<UserModel>{
-    return this.HttpClient.patch<UserModel>(this.baseURL+user.id,user)
+  update(id:string, data:UserModel): Observable<UserModel>{
+    return this.HttpClient.post<UserModel>(this.baseURL+"admin/"+id, data)
   }
 }

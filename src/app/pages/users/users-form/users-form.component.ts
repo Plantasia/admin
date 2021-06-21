@@ -87,10 +87,26 @@ export class UsersFormComponent implements OnInit {
 
       updated_at: new FormControl('', [
         Validators.required,
-      ])
+      ]),
+
+       deleted_at: new FormControl('', [
+         Validators.required,
+       ])
 
     })
 
+  }
+
+  private changeAdminStatus(user:UserModel) {
+    if (user.isAdmin) user.isAdmin = false;
+    else user.isAdmin = true;
+    this.userForm.get('isAdmin').setValue(user.isAdmin)
+  }
+
+  private changeIsActiveStatus(user: UserModel) {
+    if (user.deleted_at == null) user.deleted_at = new Date().toISOString();
+    else user.deleted_at = null;
+    this.userForm.get('deleted_at').setValue(user.deleted_at)
   }
 
   private updateUser() {
@@ -98,9 +114,9 @@ export class UsersFormComponent implements OnInit {
     const user: UserModel =
       Object.assign(new UserModel(), this.userForm.value)
     console.log(user);
-    this.service.update(user).subscribe(
+    this.service.update(user.id,user).subscribe(
       (t) => {
-        toastr.success(`Tópico atualizado!`)
+        toastr.success(`Usuário ${user.name} editado!`)
         this.submittingForm = false;
       }
 
@@ -119,8 +135,8 @@ export class UsersFormComponent implements OnInit {
       ).subscribe(
         (user) => {
           this.user = user
-          console.log(this.user);
           this.userForm.patchValue(user)
+          console.log(this.user)
         }
         
       )
