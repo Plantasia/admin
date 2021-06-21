@@ -41,23 +41,22 @@
 
       <div class="form-row mt-3">
 
-        <div  class="form-group col-md">
+        <div *ngIf="!isCreating" class="form-group col-md">
           <label  for="id" class="bold">Id</label>
-          <input disabled type="text" class="form-control" formControlName="id" id="id"  [value]="category.id">
+          <input  type="text" class="form-control" formControlName="id" id="id"  [value]="category.id">
         </div>
         
         <div  class="form-group col-md">
           <label  for="bio" class="bold">Author</label>
-          <input [attr.disabled]="isCreating" type="text" class="form-control" formControlName="authorEmail" id="bio"  [value]="category.authorEmail">
+          <input [disabled]="!isCreating" type="text" class="form-control" formControlName="authorEmail" id="bio"  [value]="category.authorEmail">
         </div>
-
       </div>
 
       <div class="form-row mt-3">
         
         <div  class="form-group col-md-4">
           <label for="bio" class="bold" >Data de criação</label>
-          <input [attr.disabled]="isCreating"  type="text" class="form-control" formControlName="created_at"  id="bio"  [value]="category.created_at">
+          <input [attr.disabled]="false"  type="text" class="form-control" formControlName="created_at"  id="bio"  [value]="category.created_at">
         </div>
         
         <div  class="form-group col-md-4">

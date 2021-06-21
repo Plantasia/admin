@@ -1,7 +1,7 @@
 import { CategoryModel } from './../../../models/category-model';
 import { CategoryService } from './../../../services/category.service';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-declare var $;
+import toastr from 'toastr';
 @Component({
   selector: 'app-categories-list',
   templateUrl: './categories-list.component.html',
@@ -36,6 +36,17 @@ export class CategoriesListComponent implements OnInit, AfterViewInit {
       console.log(categories)
      
     })
+  }
+
+  deleteCategory(category:CategoryModel) {
+    this.service.delete(category.id)
+      .pipe()
+      .subscribe(
+      (c) => {
+        console.log(c)
+        toastr.success(`Categoria ${category.name} inativada`)
+      }
+    )
   }
 
 }

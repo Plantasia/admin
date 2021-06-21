@@ -26,7 +26,7 @@ export class CategoryService {
 
   public create(newCategory: CategoryModel):Observable<CategoryModel>{
     return this.httpClient.post<CategoryModel>(
-      this.baseURL, newCategory
+      this.baseURL+'admin', newCategory
       );
   }
 
@@ -45,6 +45,12 @@ export class CategoryService {
       this.baseURL+id,
       data
       )
+  }
+
+  public delete(id):Observable<any> {
+    return this.httpClient.delete<any>(
+      this.baseURL+id
+    )
   }
 
 

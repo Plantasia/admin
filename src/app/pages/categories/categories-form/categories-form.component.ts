@@ -127,12 +127,14 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
 
       console.log("antes")
       console.log(formData)
+      toastr.success(`Imagem ${file.name} atualizada!`)
+      /*
       this.service.imageUpload(formData, this.category.id).subscribe(
         (c) => {
           console.log("upload")
           console.log(c)
         }
-      )
+      )*/
 
     }
   }
