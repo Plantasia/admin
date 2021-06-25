@@ -77,7 +77,7 @@ export class UsersFormComponent implements OnInit {
       isAdmin: new FormControl('', [
       ]),
 
-      imageStorage: new FormControl('', [
+      avatar: new FormControl('', [
         Validators.minLength(10)
       ]),
 
@@ -122,6 +122,34 @@ export class UsersFormComponent implements OnInit {
 
     )
 
+  }
+
+  private handleFileInput(event) {
+    if (event.target.files.length > 0) {
+      const file: File = event.target.files[0];
+      this.userForm.get('avatar').patchValue({
+        avatar: file
+      }
+      );
+
+      const formData = new FormData();
+
+      formData.append('file', file, file.name);
+      console.log("file")
+      console.log(file)
+
+      console.log("antes")
+      console.log(formData)
+      toastr.success(`Imagem ${file.name} atualizada!`)
+      /*
+      this.service.imageUpload(formData, this.user.id).subscribe(
+        (c) => {
+          console.log("upload")
+          console.log(c)
+        }
+      )*/
+
+    }
   }
 
   private loadUser() {

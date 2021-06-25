@@ -113,28 +113,30 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
 
   private handleFileInput(event) {
     if (event.target.files.length > 0) {
-      const file: File = event.target.files[0];
+      const file = event.target.files[0];
       this.categoryForm.get('imageStorage').patchValue({
         imageStorage: file
       }
       );
 
-      const formData = new FormData();
-
-      formData.append('file', file, file.name);
       console.log("file")
       console.log(file)
 
+      const formData = new FormData();
+
+      formData.append('file', file, file.name);
+   
+
       console.log("antes")
       console.log(formData)
-      toastr.success(`Imagem ${file.name} atualizada!`)
-      /*
+  
+      
       this.service.imageUpload(formData, this.category.id).subscribe(
         (c) => {
           console.log("upload")
           console.log(c)
         }
-      )*/
+      )
 
     }
   }
