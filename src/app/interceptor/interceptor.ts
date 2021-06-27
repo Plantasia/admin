@@ -33,20 +33,23 @@ export class Interceptor implements HttpInterceptor{
               if (err instanceof HttpErrorResponse) {
                 console.log(err)
                 if (err.status === 401) {
-                  toastr.warning("Sem autorização"
+                  toastr.warning("Seu token expirou, faça login novamente!  :401 UNAUTORIZED   "
                     + err.statusText)
                   this.route.navigate(["/login"])
+                  return;
                 }
                 if (err.status === 404) {
-                  toastr.warning("Recurso solicitado não existe =>"
-                  +err.statusText)
+                  toastr.warning("Recurso não encontrado:  404 NOT FOUND"
+                    + err.statusText)
+                  return;
                 }
                 
                 if (err.status === 500) {
-                  toastr.error("Erro no servidor!")
+                  toastr.error("Erro no servidor:  500 INTERNAL SERVER ERROR")
+                  return;
                 }
                 
-                else toastr.warning("Erro de conexão com o servidor : "+err.statusText);
+                else toastr.warning("Erro de conexão com o servidor :   "+err.statusText);
                 
               }
               

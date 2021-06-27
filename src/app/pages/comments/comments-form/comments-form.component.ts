@@ -147,15 +147,14 @@ export class CommentsFormComponent implements OnInit {
     updateComment.id = this.comment.id;
     updateComment.textBody = this.commentForm.get('textBody').value;
     updateComment.deleted_at = this.comment.deleted_at;
-
     console.log(updateComment);
     this.service.update(updateComment).subscribe(
       (c) => {
         toastr.success(`Comentário atualizado!`)
+        console.log(c);
         this.submittingForm = false;
       }
     )
-
   }
 
   submit() {
@@ -197,7 +196,7 @@ export class CommentsFormComponent implements OnInit {
               }
             );
 
-          /*this.topicsService
+          this.topicsService
             .getTopicById(comment.topic.id)
             .subscribe(
               (topic) => {
@@ -205,7 +204,7 @@ export class CommentsFormComponent implements OnInit {
                 console.log("esse é o tópico")
                 console.log(this.user)
               }
-          )*/
+          )
         }
       )
 
