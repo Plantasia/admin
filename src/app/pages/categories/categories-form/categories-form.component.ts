@@ -118,23 +118,15 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
         imageStorage: file
       }
       );
-
-      console.log("file")
-      console.log(file)
-
       const formData = new FormData();
-
       formData.append('file', file, file.name);
-   
-
-      console.log("antes")
-      console.log(formData)
   
-      
-      this.service.imageUpload(formData, this.category.id).subscribe(
+     this.service.imageUpload(formData, this.category.id).subscribe(
         (c) => {
-          console.log("upload")
-          console.log(c)
+          toastr.success(`Imagem ${file.name} atualizada com sucesso`)
+         console.log(c)
+         this.category.imageStorage = c.imageStorage;
+         this.categoryForm.get('imageStorage').patchValue(c.imageStorage)
         }
       )
 

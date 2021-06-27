@@ -67,6 +67,29 @@ export class TopicsFormComponent implements OnInit {
     }
   }
 
+  private handleFileInput(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.topicForm.get('imageStorage').patchValue({
+        imageStorage: file
+      }
+      );
+
+      console.log("file")
+      console.log(file)
+
+      const formData = new FormData();
+
+      formData.append('file', file, file.name);
+
+
+      console.log("antes")
+      console.log(formData)
+
+      //toastr.success(`Imagem ${file.name}  atualizada!`)
+    }
+  }
+
   private buildTopicForm(){
 
     this.topicForm = new FormGroup({

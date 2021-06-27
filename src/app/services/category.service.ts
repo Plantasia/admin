@@ -33,8 +33,7 @@ export class CategoryService {
   public imageUpload(formData: FormData, id: string) {
     console.log(formData.getAll("file"))
     return this.httpClient.post<any>(
-      this.baseUpload + id, formData, { headers: new HttpHeaders({ 'Content-Type': `undefined` })  }
-    
+      this.baseUpload + id, formData
     )
   }
 
