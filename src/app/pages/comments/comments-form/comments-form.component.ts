@@ -181,25 +181,31 @@ export class CommentsFormComponent implements OnInit {
           this.comment = comment;
           this.commentForm.patchValue(comment);
 
-          if (comment.deleted_at) {
+          if (this.comment.deleted_at) {
             this.deleted = true;
           }
+          console.log("esse é o comentário")
+          console.log(this.comment)
 
           this.userService
-            .getUserById(comment.userId)
+            .getUserById(comment.user.id)
             .subscribe(
               (owner) => {
                 this.user = owner;
+                console.log("esse é o usuário")
+                console.log(this.user)
               }
             );
 
-          this.topicsService
-            .getTopicById(comment.topicId)
+          /*this.topicsService
+            .getTopicById(comment.topic.id)
             .subscribe(
               (topic) => {
                 this.topic = topic;
+                console.log("esse é o tópico")
+                console.log(this.user)
               }
-          )
+          )*/
         }
       )
 
