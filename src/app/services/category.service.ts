@@ -1,69 +1,45 @@
-import { CategoryModel } from './../models/category-model';
-import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient, HttpParams, } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
+import { CategoryModel } from "./../models/category-model";
+import { Injectable } from "@angular/core";
+import { HttpHeaders, HttpClient, HttpParams } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class CategoryService {
-
-  constructor(
-    private httpClient: HttpClient,
-    private headers: HttpHeaders) {
-    
-    const access_token = localStorage.getItem("access_token");
-    headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Bearer ', `${access_token}`);
-    
-     }
-  baseAdmin = 'http://localhost:3333/forum/categories/admin/list';
-  baseURL = 'http://localhost:3333/forum/categories/'
-  imgUpload = "http://localhost:3333/forum/categories/image/"
-  
-
-
+  constructor(private httpClient: HttpClient) {}
+  baseAdmin = "http://localhost:3333/forum/categories/admin/list";
+  baseURL = "http://localhost:3333/forum/categories/";
+  baseUpload = "http://localhost:3333/forum/categories/image/";
 
   public getCategories(): Observable<CategoryModel[]> {
-    return this.httpClient.get<CategoryModel[]>(this.baseAdmin,
-      { headers: this.headers });
+    return this.httpClient.get<CategoryModel[]>(this.baseAdmin);
   }
 
   public getCategoryById(id: string): Observable<CategoryModel> {
-    var resp = this.httpClient.get<CategoryModel>(this.baseURL + 'admin/' + id,
-      { headers: this.headers });
+    var resp = this.httpClient.get<CategoryModel>(this.baseURL + "admin/" + id);
     return resp;
   }
 
   public create(newCategory: CategoryModel): Observable<CategoryModel> {
     return this.httpClient.post<CategoryModel>(
-      this.baseURL, newCategory,
-      { headers: this.headers }
+      this.baseURL + "admin",
+      newCategory
     );
   }
 
-  public update(id, data): Observable<any> {
-  
-     
-
-    return this.httpClient.patch<any>(
-      this.baseURL + id,
-      data, { headers: this.headers }
-              )
+  public imageUpload(file: File, id: string): Observable<any> {
+    const formData = new FormData();
+    console.log(file);
+    formData.append("file", file, file.name);
+    return this.httpClient.post<any>(this.baseUpload + id, formData);
   }
 
+  public update(id, data: CategoryModel): Observable<CategoryModel> {
+    return this.httpClient.patch<any>(this.baseURL + id, data);
+  }
 
-  public imageUpload(categoryId: string, formData: FormData): Observable<any> {
-    console.log("upload!")
-
-    return this.httpClient.patch<any>(
-      this.imgUpload + categoryId,
-      formData, {
-      reportProgress: true,
-      responseType: 'json'
-    }
-    )
+  public delete(id): Observable<any> {
+    return this.httpClient.delete<any>(this.baseURL + id);
   }
 }

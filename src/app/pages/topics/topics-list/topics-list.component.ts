@@ -20,7 +20,8 @@ export class TopicsListComponent implements OnInit {
   
   getTopics(){
     this.service.getTopics().subscribe((topics)=>{
-      this.topics= topics;
+      this.topics = topics;
+      console.log(this.topics)
     })
   }
 }

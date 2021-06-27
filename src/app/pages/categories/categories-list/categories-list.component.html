@@ -36,7 +36,7 @@
       
       <td>
         <button class="btn btn-info mr-2" [routerLink]="[category.id,'edit']">Editar</button>
-        <button class="btn btn-danger ml-2"  [disabled]="!category.isActive" >Inativar</button>
+        <button class="btn btn-danger ml-2" (click)="deleteCategory(category)"  [disabled]="!category.isActive" >Inativar</button>
       </td>
     </tr>
   </tbody>
