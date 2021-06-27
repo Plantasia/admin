@@ -21,7 +21,6 @@ export class Interceptor implements HttpInterceptor{
           setHeaders: {
             Authorization: "Bearer "+access_token
           }
-          
         });
         
         return next.handle(tokenizedReq)

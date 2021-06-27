@@ -142,9 +142,16 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
     this.service.update(category.id, category).subscribe((c) => {
       toastr.success(`Categoria ${c.name} atualizada!`);
       this.submittingForm = false;
-      console.log("categoria atualizada!");
-      console.log(c);
     });
+  }
+
+  private uploadImage() {
+    const formData = new FormData();
+    const name = this.categoryForm.get("name").value;
+    const description = this.categoryForm.get("description").value;
+    const file = this.categoryForm.get("imageStorage").value;
+
+    formData.append("file", file);
   }
 
   private changeStatus(category: CategoryModel) {

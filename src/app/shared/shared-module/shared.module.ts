@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from 'src/app/template/navbar/navbar.component';
 import { HeaderComponent } from 'src/app/template/header/header.component';
 import { InterceptorModule } from 'src/app/interceptor/interceptor.module';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 
@@ -29,6 +30,6 @@ import { InterceptorModule } from 'src/app/interceptor/interceptor.module';
     ReactiveFormsModule,
     NavbarComponent,
     HeaderComponent],
-    providers:[]
+    providers:[AuthService]
 })
 export class SharedModule { }
