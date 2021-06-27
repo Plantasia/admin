@@ -74,20 +74,19 @@ export class TopicsFormComponent implements OnInit {
         imageStorage: file
       }
       );
-
-      console.log("file")
-      console.log(file)
-
       const formData = new FormData();
-
       formData.append('file', file, file.name);
 
-
-      console.log("antes")
-      console.log(formData)
-
-      //toastr.success(`Imagem ${file.name}  atualizada!`)
+      this.service.imageUpload(formData, this.topic.id).subscribe(
+        (t) => {
+          toastr.success(`Imagem ${file.name} atualizada com sucesso`)
+          this.topic.imageStorage = t.imageStorage;
+          console.log(t)
+          this.topicForm.get('imageStorage').patchValue(t.imageStorage)
+        }
+      )
     }
+    
   }
 
   private buildTopicForm(){
@@ -179,7 +178,6 @@ export class TopicsFormComponent implements OnInit {
         (topic)=>{
           this.topic=topic
           this.topicForm.patchValue(topic)
-          console.log(this.topic)
         }
       )
      }

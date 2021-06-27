@@ -3,15 +3,18 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import toastr from 'toastr';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Interceptor implements HttpInterceptor{
   
-  constructor() { }
+  constructor(
+    private route: Router) { }
   
-  intercept(req: HttpRequest<any>, 
+  intercept(
+    req: HttpRequest<any>,
     next: HttpHandler): Observable<HttpEvent<any>> {
       
       
@@ -31,7 +34,8 @@ export class Interceptor implements HttpInterceptor{
                 console.log(err)
                 if (err.status === 401) {
                   toastr.warning("Sem autorização"
-                  +err.statusText)
+                    + err.statusText)
+                  this.route.navigate(["/login"])
                 }
                 if (err.status === 404) {
                   toastr.warning("Recurso solicitado não existe =>"

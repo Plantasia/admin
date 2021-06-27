@@ -10,6 +10,7 @@ export class TopicsService {
 
   urlAdminList = 'http://localhost:3333/forum/topics/admin/list'
   baseUrl = 'http://localhost:3333/forum/topics'
+  baseUpload = 'http://localhost:3333/forum/topics/image/'
   constructor(private httpClient:HttpClient) { }
 
   getTopics():Observable<TopicModel[]>{
@@ -31,6 +32,13 @@ export class TopicsService {
       this.baseUrl+'/'+topic.id+"/admin",
       topic
       )
+  }
+
+  public imageUpload(formData: FormData, id: string) {
+    console.log(formData.getAll("file"))
+    return this.httpClient.post<any>(
+      this.baseUpload + id, formData
+    )
   }
 
 }
