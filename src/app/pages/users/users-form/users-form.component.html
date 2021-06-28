@@ -75,8 +75,8 @@
 
       <div class="form-group row mt-3">
         <div class="col-3 ml-3">
-          <input  (change)="handleFileInput($event)" type="file" class="custom-file-input" formControlName="avatar" id="image">
-          <label class="custom-file-label" for="i">Upload de imagem</label>
+            <input type="file" class="custom-file-input" id="avatar" (change)="handleFileInput($event)">
+          <label class="custom-file-label" for="file">Upload de imagem</label>
           <div class="invalid-feedback">Example invalid custom file feedback</div>
         </div>
 

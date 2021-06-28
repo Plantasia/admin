@@ -32,24 +32,31 @@ export class Interceptor implements HttpInterceptor{
             catchError(err => {
               if (err instanceof HttpErrorResponse) {
                 console.log(err)
+
+                if (err.error.message == undefined) var message = err.error
+                else var message = err.error.message
+
                 if (err.status === 401) {
-                  toastr.warning("Seu token expirou, faça login novamente!  :401 UNAUTORIZED   "
-                    + err.statusText)
+                  toastr.warning("Erro!  Não autorizado")
                   this.route.navigate(["/login"])
                   return;
                 }
                 if (err.status === 404) {
-                  toastr.warning("Recurso não encontrado:  404 NOT FOUND"
-                    + err.statusText)
+                  toastr.warning("Erro! "
+                    + message)
                   return;
                 }
                 
                 if (err.status === 500) {
-                  toastr.error("Erro no servidor:  500 INTERNAL SERVER ERROR")
+
+
+                  toastr.error("Erro no servidor:" + message)
                   return;
                 }
-                
-                else toastr.warning("Erro de conexão com o servidor :   "+err.statusText);
+                if (err.status != 201) {
+  
+                  toastr.error("Erro: "+message)
+                }
                 
               }
               

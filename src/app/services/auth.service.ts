@@ -30,9 +30,9 @@ export class AuthService {
       this.httpClient.post<any>(this.urlSignIn,{email,password})
       .toPromise().then(
         jwt=>{
-          console.log(jwt.access_token)
-          localStorage.setItem("access_token", jwt.access_token)
-          this.router.navigate(['/']) 
+          const token = localStorage.setItem("access_token", jwt.access_token)
+          this.router.navigate(['/categories'])
+          this.hasAToken = localStorage.getItem("access_token")
           return this.hasAToken = localStorage.getItem("access_token")
 
         }
@@ -43,9 +43,8 @@ export class AuthService {
     }
 
     public isLogged():boolean{
-      
       console.log(this.hasAToken)
-      if(this.hasAToken){
+      if (this.hasAToken) {
         return true
       }
 

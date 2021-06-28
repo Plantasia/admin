@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { map } from 'jquery';
+import { catchError, switchMap } from 'rxjs/operators';
 import { UserModel } from 'src/app/models/user-model';
 import { UsersService } from 'src/app/services/users.service';
 import toastr from 'toastr';
@@ -12,6 +13,7 @@ import toastr from 'toastr';
   styleUrls: ['./users-form.component.css']
 })
 export class UsersFormComponent implements OnInit {
+  handleError;
   currentAction: string;
   pageName: string;
   isCreating: boolean = false;
@@ -89,32 +91,35 @@ export class UsersFormComponent implements OnInit {
         Validators.required,
       ]),
 
-       deleted_at: new FormControl('', [
-         Validators.required,
-       ])
+      deleted_at: new FormControl('', [
+        Validators.required,
+      ])
 
     })
 
   }
 
-  private changeAdminStatus(user:UserModel) {
+  private changeAdminStatus(user: UserModel) {
     if (user.isAdmin) user.isAdmin = false;
     else user.isAdmin = true;
     this.userForm.get('isAdmin').setValue(user.isAdmin)
+    console.log(this.userForm.value)
   }
 
   private changeIsActiveStatus(user: UserModel) {
     if (user.deleted_at == null) user.deleted_at = new Date().toISOString();
     else user.deleted_at = null;
     this.userForm.get('deleted_at').setValue(user.deleted_at)
+    console.log(this.userForm.value)
   }
 
   private updateUser() {
 
     const user: UserModel =
       Object.assign(new UserModel(), this.userForm.value)
+    console.log("user a ser gravado")
     console.log(user);
-    this.service.update(user.id,user).subscribe(
+    this.service.update(user.id, user).subscribe(
       (t) => {
         toastr.success(`Usuário ${user.name} editado!`)
         this.submittingForm = false;
@@ -129,25 +134,19 @@ export class UsersFormComponent implements OnInit {
       const file: File = event.target.files[0];
       this.userForm.get('avatar').patchValue({
         avatar: file
-      }
-      );
+      });
 
       const formData = new FormData();
-
       formData.append('file', file, file.name);
-      console.log("file")
-      console.log(file)
 
-      console.log("antes")
-      console.log(formData)
-      toastr.success(`Imagem ${file.name} atualizada!`)
-      /*
-      this.service.imageUpload(formData, this.user.id).subscribe(
+      this.service.imageUpload(formData, this.user.id)
+        .subscribe(
         (c) => {
-          console.log("upload")
           console.log(c)
+          toastr.success("Imagem atualizada com sucesso")
+    
         }
-      )*/
+      )
 
     }
   }
@@ -164,11 +163,12 @@ export class UsersFormComponent implements OnInit {
         (user) => {
           this.user = user
           this.userForm.patchValue(user)
-          console.log(this.user)
+          console.log(user);
+          this.user.avatar = user.avatarUrl
         }
-        
+
       )
-      
+
     }
   }
 
