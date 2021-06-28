@@ -15,6 +15,12 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.canActivate = this.authService.isLogged()
+    console.log("logado?")
+    console.log(this.canActivate)
+  }
+
+  logout() {
+    localStorage.removeItem('access_token');
   }
 
 }

@@ -46,11 +46,6 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
   private buildCategoryForm() {
 
     this.categoryForm = new FormGroup({
-
-      id: new FormControl({
-        value: null
-      }),
-
       name: new FormControl('', [
         Validators.required,
         Validators.minLength(5)
@@ -88,7 +83,6 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
 
   private setCurrentAction() {
     if (this.route.snapshot.url[0].path === 'new') {
-      //[0] is to catch the 'new'
       this.currentAction = 'new';
 
     }
@@ -136,7 +130,8 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
   private createCategory() {
     const newCategory: CategoryModel =
       Object.assign(new CategoryModel(), this.categoryForm.value)
-
+      
+    
     this.service.create(newCategory).subscribe(
       (c) => {
         console.log(c)
@@ -149,7 +144,7 @@ export class CategoriesFormComponent implements OnInit, AfterViewInit {
   private updateCategory() {
     const category: CategoryModel =
       Object.assign(new CategoryModel(), this.categoryForm.value)
-
+    category.id = this.category.id;
     this.service.update(category.id, category).subscribe(
 
       (c) => {

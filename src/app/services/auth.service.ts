@@ -43,7 +43,7 @@ export class AuthService {
     }
 
     public isLogged():boolean{
-      console.log(this.hasAToken)
+      this.hasAToken = localStorage.getItem("access_token")
       if (this.hasAToken) {
         return true
       }
@@ -54,6 +54,10 @@ export class AuthService {
     public adminSignUp():Observable<void>{
       return this.httpClient.get<void>(this.urlLogout)
     }
+  
+  public adminLogout(): Observable<void> {
+    return this.httpClient.get<void>(this.urlLogout)
+  }
     
   }
   

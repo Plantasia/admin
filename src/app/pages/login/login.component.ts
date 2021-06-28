@@ -29,7 +29,10 @@ export class LoginComponent implements OnInit {
     
     ) {}
     
-    ngOnInit(): void {
+  ngOnInit(): void {
+    this.authService.adminLogout().subscribe(() => {
+       localStorage.removeItem("access_token");
+      })
       this.buildLoginForm()
     }
     

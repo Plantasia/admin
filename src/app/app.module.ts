@@ -15,12 +15,14 @@ import { NavbarComponent } from './template/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core/core.module';
 import { HeaderComponent } from './template/header/header.component';
+import { LogoutComponent } from './pages/logout/logout.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    LogoutComponent,
     
   ],
   imports: [
