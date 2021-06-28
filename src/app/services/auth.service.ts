@@ -27,14 +27,20 @@ export class AuthService {
       const password  = adminData.getPassword();
       
       this.hasAToken = localStorage.getItem("access_token")
-      this.httpClient.post<any>(this.urlSignIn,{email,password})
+     
+      this.httpClient.post<any>(this.urlSignIn, { email, password })
+        
       .toPromise().then(
-        jwt=>{
+        jwt => {
+          
+          console.log("eieiei")
+          console.log(this.hasAToken)
           const token = localStorage.setItem("access_token", jwt.access_token)
+
           this.router.navigate(['/categories'])
           this.hasAToken = localStorage.getItem("access_token")
-          return this.hasAToken = localStorage.getItem("access_token")
 
+          return this.hasAToken = localStorage.getItem("access_token")
         }
       ).catch(error=>{
         toastr.console.error("Não logado!"+error.message);

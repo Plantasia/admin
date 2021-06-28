@@ -80,8 +80,7 @@ export class TopicsFormComponent implements OnInit {
       this.service.imageUpload(formData, this.topic.id).subscribe(
         (t) => {
           toastr.success(`Imagem ${file.name} atualizada com sucesso`)
-          this.topic.imageStorage = t.imageStorage;
-          console.log(t)
+          this.topic.imageStorage = t.imageStorage
           this.topicForm.get('imageStorage').patchValue(t.imageStorage)
         }
       )
@@ -178,6 +177,9 @@ export class TopicsFormComponent implements OnInit {
         (topic)=>{
           this.topic=topic
           this.topicForm.patchValue(topic)
+          this.topic.imageStorage = topic.imageStorageUrl;
+          console.log("topic")
+          console.log(topic)
         }
       )
      }

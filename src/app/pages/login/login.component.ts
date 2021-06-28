@@ -15,64 +15,50 @@ import { throwError } from 'rxjs';
 })
 
 export class LoginComponent implements OnInit {
-  loginForm:FormGroup;
-  isLogged:boolean =false;
-  pageName:string;
-  errorMessages: string[]= null;
-  submittingForm:boolean =false;
-  nameButton:string = "login";
-  
-  constructor(private authService:AuthService,
-    private adminData:AdminModel,
+  loginForm: FormGroup;
+  isLogged: boolean = false;
+  pageName: string;
+  errorMessages: string[] = null;
+  submittingForm: boolean = false;
+  nameButton: string = "login";
+
+  constructor(private authService: AuthService,
+    private adminData: AdminModel,
     private route: ActivatedRoute,
     private router: Router,
-    
-    ) {}
-    
-    ngOnInit(): void {
-      this.buildLoginForm()
-    }
-    
-    private submit(){
-      
-      const password:string = this.loginForm.get('password').value;
-      const username:string = this.loginForm.get('username').value;
 
-      this.adminData.setEmail(username)
-      this.adminData.setPassword(password);
-      
-      this.authService.adminSignIn(this.adminData);
-      
-    }
-    private buildLoginForm(){
-      this.loginForm = new FormGroup({
-        username: new FormControl(
-          '',[
-            Validators.required,
-            Validators.minLength(6)
-          ]
-          ),
-          password: new FormControl(
-            '',[
-              Validators.required,
-              Validators.minLength(10)  
-            ]
-            )
-          })
-        }
-        
-        private actionsForSuccess(){
-          toastr.success("Logando você no Plantasia Admin");
-          this.submittingForm = true;
-          
-          
-        }
-        
-        private actionsForError(error:HttpErrorResponse){
-          toastr.error(error.message);
-          toastr.error("Ocorreu um erro!" );
-          this.submittingForm =false;
-          
-        }
-      }
-      
+  ) { }
+
+  ngOnInit(): void {
+    this.buildLoginForm()
+  }
+
+  private submit() {
+
+    const password: string = this.loginForm.get('password').value;
+    const username: string = this.loginForm.get('username').value;
+
+    this.adminData.setEmail(username)
+    this.adminData.setPassword(password);
+
+    this.authService.adminSignIn(this.adminData);
+
+  }
+  private buildLoginForm() {
+    this.loginForm = new FormGroup({
+      username: new FormControl(
+        '', [
+        Validators.required,
+        Validators.minLength(6)
+      ]
+      ),
+      password: new FormControl(
+        '', [
+        Validators.required,
+        Validators.minLength(10)
+      ]
+      )
+    })
+  }
+
+}

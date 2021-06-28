@@ -163,7 +163,6 @@ export class UsersFormComponent implements OnInit {
         (user) => {
           this.user = user
           this.userForm.patchValue(user)
-          console.log(user);
           this.user.avatar = user.avatarUrl
         }
 
