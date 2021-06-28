@@ -1,0 +1,97 @@
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="mt-4 breadcrumb">
+    <li class=" breadcrumb-item" routerLink="/"><a href="#">Home</a></li>
+    <li class="breadcrumb-item" aria-current="page">Usuários</li>
+  </ol>
+</nav>
+
+<div class="row mb-4">
+  <div class=" col h2 border-left">
+    Usuários
+  </div>
+
+  <div class="btn btn-info d-flex align-items-center" routerLink="/users">
+    <mat-icon>arrow_back</mat-icon>&nbsp;Voltar
+  </div>
+</div>
+
+
+<form [formGroup]="userForm" class="mb-4">
+
+  <div class="card">
+    <div class="card-hearder">
+    </div>
+
+    <div class="card-body">
+
+      <div class="form-row ">
+
+        <div class="form-group col-md-4">
+          <label for="name">Nome</label>
+          <input type="text" class="form-control" [value]="user.name" id="name">
+        </div>
+
+        <div class="form-group col-md-8">
+          <label for="description">Bio</label>
+          <input type="text" class="form-control" id="description" [value]="user.bio">
+        </div>
+
+      </div>
+
+      <div class="form-row mt-3">
+
+        <div class="form-group col-md-8">
+          <label for="bio" class="bold">Administrador</label>&nbsp;
+          <input type="checkbox" [checked]="user.isAdmin"  (change)="changeAdminStatus(user)" value="admin" id="bio">
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="avatar" class="bold">Inativar usuário</label>&nbsp;
+          <input type="checkbox" [checked]="user.deleted_at" (change)="changeIsActiveStatus(user)" id="avatar">
+        </div>
+
+
+      </div>
+
+      <div class="form-row mt-3">
+
+        <div class="form-group col-md-4">
+          <label for="bio" class="bold">Data de criação</label>
+          <input disabled type="text" class="form-control" id="bio" [value]="user.created_at">
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="avatar" class="bold">Ultima atualização</label>
+          <input disabled type="text" class="form-control" id="update" [value]="user.updated_at">
+        </div>
+
+
+        <div class="form-group col-md-4">
+          <label for="avatar" class="bold">Data de inativação</label>
+          <input disabled type="text" class="form-control" id="update" [value]="user.deleted_at">
+        </div>
+
+      </div>
+
+      <div class="form-group row mt-3">
+        <div class="col-3 ml-3">
+            <input type="file" class="custom-file-input" id="avatar" (change)="handleFileInput($event)">
+          <label class="custom-file-label" for="file">Upload de imagem</label>
+          <div class="invalid-feedback">Example invalid custom file feedback</div>
+        </div>
+
+        <div class="col-3 mr-1">
+          <img  class="rounded-image" [src]="user.avatar" class="rounded-image" width="300" />
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <button (click)="updateUser()" class="mt-4 btn btn-primary d-flex align-items-center">
+    <mat-icon>check_circle_outline</mat-icon> &nbsp;Salvar
+  </button>
+  <br /><br />
+
+</form>

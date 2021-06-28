@@ -1,0 +1,12 @@
+.btn-success{
+  background-color: #963f96  !important;
+  border: solid 1px #963f96 !important;
+}
+.btn-info{
+  background-color:#668cff !important;
+  border: solid 1px #668cff !important;
+}
+.btn-danger{
+  background-color: #ff6666!important;
+  border: solid 1px #ff6666 !important;
+}

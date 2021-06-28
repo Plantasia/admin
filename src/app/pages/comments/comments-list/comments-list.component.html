@@ -1,0 +1,39 @@
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item" routerLink="/"><a href="#">Home</a></li>
+    <li class="breadcrumb-item" aria-current="page">Categories</li>
+  </ol>
+</nav>
+
+<div class="row mb-4">
+  <div class=" col h2 border-left">
+    Comentários
+  </div>
+
+  <table class="mb-4 table table-hover display">
+    <thead>
+      <tr class="mb-4 bg-light">
+        <th class="">
+          Comentário
+        </th>
+        <th>
+          Ações
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let comment of comments">
+        <td>
+          <strong>"{{comment.textBody}}"</strong><br>
+          <small>{{comment.id}}</small>
+        </td>
+
+        <td>
+          <button class="btn btn-info mr-2" [routerLink]="[comment.id,'edit']">Editar</button>
+          <button class="btn btn-danger ml-2" [attr.disabled]="comment.deleted_at"  >Inativar</button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>

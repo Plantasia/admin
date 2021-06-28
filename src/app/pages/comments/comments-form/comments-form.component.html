@@ -1,0 +1,84 @@
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="mt-4 breadcrumb">
+    <li class=" breadcrumb-item" routerLink="/"><a href="#">Home</a></li>
+    <li class="breadcrumb-item" aria-current="page">Comentários</li>
+  </ol>
+</nav>
+
+<div class="row mb-4">
+  <div class=" col h2 border-left">
+    Comentários
+  </div>
+
+  <div class="btn btn-info d-flex align-items-center" routerLink="/comments">
+    <mat-icon>arrow_back</mat-icon>&nbsp;Voltar
+  </div>
+</div>
+
+
+<form [formGroup]="commentForm" class="mb-4">
+
+  <div class="card">
+    <div class="card-hearder">
+    </div>
+
+    <div class="card-body">
+
+      <div class="form-row ">
+
+        <div class="form-group col-md-4">
+          <label for="Id">Id</label>
+          <input disabled type="text" formControlName="id" class="form-control" [value]="comment.id" id="id">
+        </div>
+
+        <div class="form-group col-md-8">
+          <label for="textBody">Comentário</label>
+          <textarea class="form-control" formControlName="textBody" id="description" [value]="comment.textBody"></textarea>
+        </div>
+
+      </div>
+
+      <div class="form-row mt-3">
+
+        <div class="form-group col-md-8">
+          <label for="bio" class="bold">Author</label>
+          <input disabled type="text"  class="form-control" id="bio" [value]="user.name">
+        </div>
+      
+        <div class="form-group col-md-4">
+          <label for="topic" class="bold">Tópico:</label>
+          <input disabled type="text" formControlName="textBody" class="form-control" id="avatar" [value]="topic.name">
+        </div>
+ 
+
+      </div>
+
+      <div class="form-row mt-3">
+
+        <div class="form-group col-md-4">
+          <label for="created_at" class="bold">Data de criação</label>
+          <input disabled type="text" class="form-control" id="bio" [value]="comment.created_at">
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="updated_at" class="bold">Ultima edição</label>
+          <input disabled type="text" class="form-control" id="avatar" [value]="comment.updated_at">
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="deleted" class="bold">Inativo:</label>
+          <input type="checkbox" class="row ml-5" value="deleted" (change)="changeStatus(comment)" formControlName="deleted_at" [checked]="comment.deleted_at!=null" />
+        </div>
+        
+      </div>
+
+
+    </div>
+  </div>
+
+  <button class="mt-4 btn btn-primary d-flex align-items-center " (click)="submit()">
+    <mat-icon>check_circle_outline</mat-icon> &nbsp;Salvar
+  </button>
+  <br /><br />
+
+</form>
